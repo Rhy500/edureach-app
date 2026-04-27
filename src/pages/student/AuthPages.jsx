@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { signIn, signUp, signInWithGoogle } from '../lib/supabase'
+import * as Supabase from './lib/Supabase'
 
 // ── LOGIN ─────────────────────────────────────────
 export function LoginPage({ onNavigate }) {
@@ -13,7 +13,7 @@ export function LoginPage({ onNavigate }) {
     setLoading(true)
     setError(null)
     try {
-      await signIn({ email, password })
+      await Supabase.signIn({ email, password })
       onNavigate('performa')
     } catch (err) {
       setError(err.message === 'Invalid login credentials'
@@ -26,7 +26,7 @@ export function LoginPage({ onNavigate }) {
 
   async function handleGoogle() {
     setError(null)
-    try { await signInWithGoogle() }
+    try { await Supabase.signInWithGoogle() }
     catch (err) { setError(err.message) }
   }
 
@@ -119,7 +119,7 @@ export function RegisterPage({ onNavigate }) {
     setLoading(true)
     setError(null)
     try {
-      await signUp({
+      await Supabase.signUp({
         name: form.name,
         email: form.email,
         password: form.password,

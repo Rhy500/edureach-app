@@ -1,5 +1,7 @@
 import { SUBJECTS, COURSES } from "../data";
 
+
+
 const weekDays = [
   { label: "Sen", done: true, mins: 40 },
   { label: "Sel", done: true, mins: 55 },
@@ -217,5 +219,6 @@ export default function PerformaPage({ onNavigate }) {
 
       </div>
     </div>
+    
   );
 }
