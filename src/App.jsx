@@ -1,37 +1,89 @@
-import { useState } from "react";
-import Navbar from "./components/Navbar";
-import LandingPage from "./pages/LandingPage";
-import KursusPage from "./pages/KursusPage";
-import VideoPage from "./pages/VideoPage";
-import QuizPage from "./pages/QuizPage";
-import PerformaPage from "./pages/PerformaPage";
-import MentorPage from "./pages/MentorPage";
-import { LoginPage, RegisterPage } from "./pages/AuthPages";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
+import { AuthProvider, useAuth } from './hooks/useAuth'
+import Navbar from './components/Navbar'
+import LandingPage from './pages/LandingPage'
+import KursusPage from './pages/KursusPage'
+import VideoPage from './pages/VideoPage'
+import QuizPage from './pages/QuizPage'
+import PerformaPage from './pages/PerformaPage'
+import MentorPage from './pages/MentorPage'
+import { LoginPage, RegisterPage } from './pages/AuthPages'
 
-const NO_NAVBAR = ["login", "register"];
+const NO_NAVBAR = ['/login', '/register']
 
-export default function App() {
-  const [page, setPage] = useState("landing");
+// Halaman yang butuh login
+function ProtectedRoute({ children }) {
+  const { user, loading } = useAuth()
+  const location = useLocation()
 
-  const navigate = (target) => {
-    setPage(target);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="text-3xl font-black mb-2">
+          <span className="text-violet-600">Edu</span><span className="text-emerald-500">Reach</span>
+        </div>
+        <div className="text-sm text-gray-400 animate-pulse">Memuat...</div>
+      </div>
+    </div>
+  )
 
-  const showNavbar = !NO_NAVBAR.includes(page);
+  if (!user) return <Navigate to="/login" state={{ from: location }} replace />
+  return children
+}
+
+function AppContent() {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { user } = useAuth()
+
+  // Helper: navigate + scroll to top
+  function go(path) {
+    navigate(path)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const showNavbar = !NO_NAVBAR.includes(location.pathname)
 
   return (
     <div className="min-h-screen bg-white">
-      {showNavbar && <Navbar activePage={page} onNavigate={navigate} />}
+      {showNavbar && (
+        <Navbar
+          activePage={location.pathname.replace('/', '') || 'landing'}
+          onNavigate={go}
+          user={user}
+        />
+      )}
+      <Routes>
+        <Route path="/"         element={<LandingPage  onNavigate={go} />} />
+        <Route path="/kursus"   element={<KursusPage   onNavigate={go} />} />
+        <Route path="/mentor"   element={<MentorPage   onNavigate={go} />} />
+        <Route path="/login"    element={<LoginPage    onNavigate={go} />} />
+        <Route path="/register" element={<RegisterPage onNavigate={go} />} />
 
-      {page === "landing"   && <LandingPage  onNavigate={navigate} />}
-      {page === "kursus"    && <KursusPage   onNavigate={navigate} />}
-      {page === "video"     && <VideoPage    onNavigate={navigate} />}
-      {page === "kuis"      && <QuizPage     onNavigate={navigate} />}
-      {page === "performa"  && <PerformaPage onNavigate={navigate} />}
-      {page === "mentor"    && <MentorPage   onNavigate={navigate} />}
-      {page === "login"     && <LoginPage    onNavigate={navigate} />}
-      {page === "register"  && <RegisterPage onNavigate={navigate} />}
+        {/* Protected routes */}
+        <Route path="/video" element={
+          <ProtectedRoute><VideoPage onNavigate={go} /></ProtectedRoute>
+        } />
+        <Route path="/kuis" element={
+          <ProtectedRoute><QuizPage onNavigate={go} /></ProtectedRoute>
+        } />
+        <Route path="/performa" element={
+          <ProtectedRoute><PerformaPage onNavigate={go} /></ProtectedRoute>
+        } />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </div>
-  );
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </BrowserRouter>
+  )
 }
