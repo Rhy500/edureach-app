@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EPISODES, SUBJECTS } from "../data";
+import { EPISODES, SUBJECTS } from "../../data";
 
 export default function VideoPage({ onNavigate }) {
   const [activeEp, setActiveEp] = useState(3);

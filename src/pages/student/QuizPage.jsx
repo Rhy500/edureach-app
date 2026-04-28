@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { QUIZ_QUESTIONS } from "../data";
+import { QUIZ_QUESTIONS } from "../../data";
 
 export default function QuizPage({ onNavigate }) {
   const [current, setCurrent] = useState(0);

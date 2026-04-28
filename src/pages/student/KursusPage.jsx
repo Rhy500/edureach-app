@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { useCourses } from '../hooks/useCourses'
+import { useCourses } from '../../hooks/useCourses'
 
 const SUBJECTS = [
   { id: 'semua', label: 'Semua' },

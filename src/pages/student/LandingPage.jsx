@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { SUBJECTS, COURSES } from "../data";
+import { useState } from 'react';
+import { SUBJECTS, COURSES } from '../../data';
 
 const stats = [
   { num: "2.400+", label: "Siswa aktif" },

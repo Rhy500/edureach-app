@@ -18,9 +18,9 @@ const avatarColors = [
 ];
 
 function MentorCard({ mentor, onSelect, selected }) {
-  const s = SUBJECTS.find(s => s.id === mentor.subject);
   const initials = mentor.name.split(" ").map(n => n[0]).slice(0, 2).join("");
   const avatarColor = avatarColors[mentor.id % avatarColors.length];
+  const badgeColor = subjectBadgeColor[mentor.subject] || "bg-gray-100 text-gray-800";
 
   return (
     <div
@@ -36,8 +36,8 @@ function MentorCard({ mentor, onSelect, selected }) {
           <h3 className="font-black text-gray-900 text-sm leading-tight">{mentor.name}</h3>
           <p className="text-xs text-gray-400 mt-0.5">{mentor.role}</p>
           <div className="flex gap-1.5 mt-1.5 flex-wrap">
-            {mentor.badges.map(b => (
-              <span key={b} className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${subjectBadgeColor[mentor.subject]}`}>{b}</span>
+            {mentor.badges?.map(b => (
+              <span key={b} className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${badgeColor}`}>{b}</span>
             ))}
           </div>
         </div>
@@ -75,6 +75,10 @@ export default function MentorPage({ onNavigate }) {
   const filtered = filterSubject === "semua" ? MENTORS : MENTORS.filter(m => m.subject === filterSubject);
   const selectedMentor = MENTORS.find(m => m.id === selected);
 
+  // Dapatkan subject yang ada mentor
+  const subjectsWithMentors = SUBJECTS.filter(s => MENTORS.some(m => m.subject === s.id));
+  const filterButtons = [{ id: "semua", label: "Semua" }, ...subjectsWithMentors];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-6 py-8">
@@ -90,7 +94,7 @@ export default function MentorPage({ onNavigate }) {
           {[
             { val: MENTORS.length, label: "Mentor aktif", color: "text-violet-600" },
             { val: MENTORS.reduce((a, m) => a + m.students, 0), label: "Total siswa", color: "text-emerald-600" },
-            { val: (MENTORS.reduce((a, m) => a + m.rating, 0) / MENTORS.length).toFixed(1) + "★", label: "Rata-rata rating", color: "text-amber-600" },
+            { val: MENTORS.length > 0 ? (MENTORS.reduce((a, m) => a + m.rating, 0) / MENTORS.length).toFixed(1) + "★" : "0★", label: "Rata-rata rating", color: "text-amber-600" },
           ].map(s => (
             <div key={s.label} className="bg-white rounded-2xl border border-gray-100 px-5 py-4">
               <div className={`text-2xl font-black ${s.color}`}>{s.val}</div>
@@ -101,7 +105,7 @@ export default function MentorPage({ onNavigate }) {
 
         {/* Filter */}
         <div className="flex gap-2 flex-wrap mb-6">
-          {[{ id: "semua", label: "Semua" }, ...SUBJECTS.filter(s => s.id !== "semua" && MENTORS.find(m => m.subject === s.id))].map(s => (
+          {filterButtons.map(s => (
             <button
               key={s.id}
               onClick={() => setFilterSubject(s.id)}
@@ -144,7 +148,7 @@ export default function MentorPage({ onNavigate }) {
 
                   <h4 className="text-xs font-black text-gray-600 uppercase tracking-widest mb-2">Kursus yang diajarkan</h4>
                   <div className="space-y-1.5 mb-4">
-                    {COURSES.filter(c => c.subject === selectedMentor.subject).slice(0, 3).map(c => (
+                    {COURSES?.filter(c => c.subject === selectedMentor.subject).slice(0, 3).map(c => (
                       <div
                         key={c.id}
                         onClick={() => onNavigate("video")}
