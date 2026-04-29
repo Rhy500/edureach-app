@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MENTORS, SUBJECTS, COURSES } from "../data";
+import { MENTORS, SUBJECTS, COURSES } from "../../data";
 
 const subjectBadgeColor = {
   matematika: "bg-violet-100 text-violet-800",

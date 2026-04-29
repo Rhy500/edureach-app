@@ -1,14 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './hooks/useAuth'
 import Navbar from './components/Navbar'
-import LandingPage from './pages/student/LandingPage'
-import KursusPage from './pages/student/KursusPage'
-import VideoPage from './pages/student/VideoPage'
-import QuizPage from './pages/student/QuizPage'
-import PerformaPage from './pages/student/PerformaPage'
-import { LoginPage, RegisterPage } from './pages/student/AuthPages'
-import MentorApplyPage from './pages/mentor/Mentorapplypage'
-import OrangTuaDashboard, { InviteCodeCard } from './pages/parent/Orangtuadashboard'
+import LandingPage  from "./pages/student/LandingPage";
+import KursusPage   from "./pages/student/KursusPage";
+import VideoPage    from "./pages/student/VideoPage";
+import QuizPage     from "./pages/student/QuizPage";
+import PerformaPage from "./pages/student/PerformaPage";
+import MentorPage   from "./pages/student/MentorPage";
+import { LoginPage, RegisterPage } from "./pages/student/AuthPages";
 
 const NO_NAVBAR = ['/login', '/register']
 
@@ -75,8 +74,6 @@ function AppContent() {
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <Route path="/mentor/daftar" element={<ProtectedRoute><MentorApplyPage onNavigate={navigate} /></ProtectedRoute>} />
-<Route path="/ortu/dashboard" element={<ProtectedRoute><OrangTuaDashboard onNavigate={navigate} /></ProtectedRoute>} />
     </div>
   )
 }
