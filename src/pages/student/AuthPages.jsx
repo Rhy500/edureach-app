@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Supabase from '../../lib/supabase'
+import { signIn, signUp, signInWithGoogle } from "../../lib/supabase" 
 
 // ── LOGIN ─────────────────────────────────────────
 export function LoginPage({ onNavigate }) {
