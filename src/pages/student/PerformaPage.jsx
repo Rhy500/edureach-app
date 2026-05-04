@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { supabase } from "../../lib/supabase";
+import { InviteCodeCard } from './pages/ortu/OrangTuaDashboard'
 
 const subjectMeta = {
   matematika: { label:"Matematika",       color:"bg-violet-100 text-violet-800",  bar:"bg-violet-500" },
@@ -165,6 +166,8 @@ export default function PerformaPage({ onNavigate }) {
             </>
           )}
         </div>
+        {/* Invite Code */}
+        <InviteCodeCard userId={user.id} />
 
         {/* ── stat cards ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
@@ -355,5 +358,6 @@ export default function PerformaPage({ onNavigate }) {
 
       </div>
     </div>
+    
   );
 }

@@ -8,6 +8,8 @@ import QuizPage     from "./pages/student/QuizPage";
 import PerformaPage from "./pages/student/PerformaPage";
 import MentorPage   from "./pages/student/MentorPage";
 import { LoginPage, RegisterPage } from "./pages/student/AuthPages";
+import MentorApplyPage from './pages/mentor/MentorApplyPage'
+import OrangTuaDashboard, { InviteCodeCard } from './pages/ortu/OrangTuaDashboard'
 
 const NO_NAVBAR = ['/login', '/register']
 
@@ -59,6 +61,8 @@ function AppContent() {
         <Route path="/mentor"   element={<MentorPage   onNavigate={go} />} />
         <Route path="/login"    element={<LoginPage    onNavigate={go} />} />
         <Route path="/register" element={<RegisterPage onNavigate={go} />} />
+        <Route path="/mentor/daftar" element={<ProtectedRoute><MentorApplyPage onNavigate={navigate} /></ProtectedRoute>} />
+        <Route path="/ortu/dashboard" element={<ProtectedRoute><OrangTuaDashboard onNavigate={navigate} /></ProtectedRoute>} />
 
         {/* Protected routes */}
         <Route path="/video" element={

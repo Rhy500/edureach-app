@@ -13,7 +13,7 @@ export function LoginPage({ onNavigate }) {
     setLoading(true)
     setError(null)
     try {
-      await Supabase.signIn({ email, password })
+      await signIn({ email, password })
       onNavigate('performa')
     } catch (err) {
       setError(err.message === 'Invalid login credentials'
@@ -26,7 +26,7 @@ export function LoginPage({ onNavigate }) {
 
   async function handleGoogle() {
     setError(null)
-    try { await Supabase.signInWithGoogle() }
+    try { await signInWithGoogle() }
     catch (err) { setError(err.message) }
   }
 
@@ -119,7 +119,7 @@ export function RegisterPage({ onNavigate }) {
     setLoading(true)
     setError(null)
     try {
-      await Supabase.signUp({
+      await signUp({
         name: form.name,
         email: form.email,
         password: form.password,
