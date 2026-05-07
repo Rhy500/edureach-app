@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { supabase } from "../../lib/supabase";
-import { InviteCodeCard } from './pages/ortu/OrangTuaDashboard'
+//import { InviteCodeCard } from '../parent/Orangtuadashboard'
 
 const subjectMeta = {
   matematika: { label:"Matematika",       color:"bg-violet-100 text-violet-800",  bar:"bg-violet-500" },
   ipa:        { label:"IPA",              color:"bg-emerald-100 text-emerald-800", bar:"bg-emerald-500" },
-  coding:     { label:"Coding",           color:"bg-amber-100 text-amber-800",    bar:"bg-amber-500" },
+ // coding:     { label:"Coding",           color:"bg-amber-100 text-amber-800",    bar:"bg-amber-500" },
   digital:    { label:"Literasi Digital", color:"bg-pink-100 text-pink-800",      bar:"bg-pink-500" },
   bahasa:     { label:"Bahasa Indonesia", color:"bg-sky-100 text-sky-800",        bar:"bg-sky-500" },
   ips:        { label:"IPS",             color:"bg-orange-100 text-orange-800",   bar:"bg-orange-500" },

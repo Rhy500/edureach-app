@@ -1,4 +1,4 @@
-import { useState } from 'react'
+/*import { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { submitMentorApplication, getMentorApplicationStatus } from '../../lib/roles'
 import { useEffect } from 'react'
@@ -160,7 +160,7 @@ export default function MentorApplyPage({ onNavigate }) {
         <h1 className="text-2xl font-black text-gray-900 mb-1">Daftar jadi mentor</h1>
         <p className="text-sm text-gray-400 mb-6">Bagikan ilmumu ke ribuan siswa di seluruh Indonesia</p>
 
-        {/* Step indicator */}
+        {/* Step indicator */ /*}
         <div className="flex items-center gap-2 mb-7">
           {steps.map((s, i) => (
             <div key={i} className="flex items-center gap-2 flex-1">
@@ -183,7 +183,7 @@ export default function MentorApplyPage({ onNavigate }) {
             </div>
           )}
 
-          {/* Step 0 — Bidang keahlian */}
+          {/* Step 0 — Bidang keahlian */ /*}
           {step === 0 && (
             <>
               <h2 className="text-lg font-black text-gray-900 mb-1">Bidang keahlianmu</h2>
@@ -201,7 +201,7 @@ export default function MentorApplyPage({ onNavigate }) {
             </>
           )}
 
-          {/* Step 1 — Pengalaman */}
+          {/* Step 1 — Pengalaman *//*}
           {step === 1 && (
             <>
               <h2 className="text-lg font-black text-gray-900 mb-1">Pengalamanmu</h2>
@@ -226,7 +226,7 @@ export default function MentorApplyPage({ onNavigate }) {
             </>
           )}
 
-          {/* Step 2 — Motivasi & Kontak */}
+          {/* Step 2 — Motivasi & Kontak *//*}
           {step === 2 && (
             <>
               <h2 className="text-lg font-black text-gray-900 mb-1">Motivasi & kontak</h2>
@@ -255,7 +255,7 @@ export default function MentorApplyPage({ onNavigate }) {
             </>
           )}
 
-          {/* Step 3 — Konfirmasi */}
+          {/* Step 3 — Konfirmasi *//*}
           {step === 3 && (
             <>
               <h2 className="text-lg font-black text-gray-900 mb-1">Konfirmasi permohonan</h2>
@@ -281,7 +281,7 @@ export default function MentorApplyPage({ onNavigate }) {
             </>
           )}
 
-          {/* Navigation */}
+          {/* Navigation *//*}
           <div className="flex gap-3 mt-6">
             {step > 0 && (
               <button onClick={() => setStep(step - 1)}
@@ -305,4 +305,4 @@ export default function MentorApplyPage({ onNavigate }) {
       </div>
     </div>
   )
-}
+}*/

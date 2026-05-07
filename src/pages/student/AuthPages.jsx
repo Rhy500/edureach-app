@@ -36,7 +36,7 @@ export function LoginPage({ onNavigate }) {
 
         <div className="text-center mb-8">
           <button onClick={() => onNavigate('landing')} className="text-3xl font-black">
-            <span className="text-violet-600">Edu</span><span className="text-emerald-500">Reach</span>
+            <span className="text-violet-600">Akademik</span><span className="text-emerald-500">Belajar</span>
           </button>
           <p className="text-gray-400 text-sm mt-2">Selamat datang kembali 👋</p>
         </div>
@@ -110,8 +110,8 @@ export function RegisterPage({ onNavigate }) {
 
   const roles = [
     { id: 'siswa',  label: 'Siswa',       icon: '📚', desc: 'Ingin belajar & berkembang' },
-    { id: 'mentor', label: 'Mentor',      icon: '🎓', desc: 'Ingin berbagi ilmu' },
-    { id: 'ortu',   label: 'Orang Tua',   icon: '👨‍👩‍👧', desc: 'Memantau perkembangan anak' },
+    //{ id: 'mentor', label: 'Mentor',      icon: '🎓', desc: 'Ingin berbagi ilmu' },
+    //{ id: 'ortu',   label: 'Orang Tua',   icon: '👨‍👩‍👧', desc: 'Memantau perkembangan anak' },
   ]
   const grades = ['SD Kelas 1–3', 'SD Kelas 4–6', 'SMP Kelas 7–9', 'SMA Kelas 10–12', 'Umum']
 
@@ -144,7 +144,7 @@ export function RegisterPage({ onNavigate }) {
 
         <div className="text-center mb-6">
           <button onClick={() => onNavigate('landing')} className="text-3xl font-black">
-            <span className="text-violet-600">Edu</span><span className="text-emerald-500">Reach</span>
+            <span className="text-violet-600">Akademik</span><span className="text-emerald-500">Belajar</span>
           </button>
           <p className="text-gray-400 text-sm mt-2">Buat akun gratis kamu sekarang</p>
         </div>

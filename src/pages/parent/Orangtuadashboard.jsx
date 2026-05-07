@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+/*import { useState, useEffect } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { connectParentToChild, getMyChildren, getChildProgress, getChildActivity, getChildInviteCode } from '../../lib/roles'
 
@@ -119,7 +119,7 @@ function ChildDashboard({ child }) {
   return (
     <div className="space-y-5">
 
-      {/* Stats */}
+      {/* Stats *//*}
       <div className="grid grid-cols-4 gap-3">
         {[
           { val: child.streak || 0, label: 'Hari streak', color: 'text-violet-600', sub: '🔥' },
@@ -135,7 +135,7 @@ function ChildDashboard({ child }) {
         ))}
       </div>
 
-      {/* Progress kursus */}
+      {/* Progress kursus *//*}
       <div className="bg-white rounded-2xl border border-gray-100 p-5">
         <h3 className="text-sm font-black text-gray-800 mb-4">Progress kursus</h3>
         {progress.length === 0 ? (
@@ -173,7 +173,7 @@ function ChildDashboard({ child }) {
         )}
       </div>
 
-      {/* Aktivitas terbaru */}
+      {/* Aktivitas terbaru *//*}
       <div className="bg-white rounded-2xl border border-gray-100 p-5">
         <h3 className="text-sm font-black text-gray-800 mb-4">Aktivitas terbaru</h3>
         {activity.length === 0 ? (
@@ -282,7 +282,7 @@ export default function OrangTuaDashboard({ onNavigate }) {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-6 py-8">
 
-        {/* Header */}
+        {/* Header *//*}
         <div className="flex items-center justify-between mb-7">
           <div>
             <h1 className="text-2xl font-black text-gray-900">Dashboard Orang Tua</h1>
@@ -293,7 +293,7 @@ export default function OrangTuaDashboard({ onNavigate }) {
           </div>
         </div>
 
-        {/* Notif berhasil connect */}
+        {/* Notif berhasil connect *//*}
         {justConnected && (
           <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-semibold px-5 py-3 rounded-2xl mb-5 flex items-center gap-2">
             <span>🎉</span> Berhasil terhubung dengan <strong>{justConnected}</strong>!
@@ -302,7 +302,7 @@ export default function OrangTuaDashboard({ onNavigate }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-          {/* Sidebar kiri — daftar anak */}
+          {/* Sidebar kiri — daftar anak *//*}
           <div className="space-y-4">
             <ConnectChildCard onConnected={handleConnected} />
 
@@ -335,7 +335,7 @@ export default function OrangTuaDashboard({ onNavigate }) {
             )}
           </div>
 
-          {/* Konten kanan — detail anak */}
+          {/* Konten kanan — detail anak *//*}
           <div className="lg:col-span-2">
             {selectedChild ? (
               <div>
@@ -366,4 +366,4 @@ export default function OrangTuaDashboard({ onNavigate }) {
       </div>
     </div>
   )
-}
+} */

@@ -4,7 +4,7 @@ import { MENTORS, SUBJECTS, COURSES } from "../../data";
 const subjectBadgeColor = {
   matematika: "bg-violet-100 text-violet-800",
   ipa: "bg-emerald-100 text-emerald-800",
-  coding: "bg-amber-100 text-amber-800",
+  //coding: "bg-amber-100 text-amber-800",
   digital: "bg-pink-100 text-pink-800",
   bahasa: "bg-sky-100 text-sky-800",
   ips: "bg-orange-100 text-orange-800",

@@ -8,8 +8,8 @@ import QuizPage     from "./pages/student/QuizPage";
 import PerformaPage from "./pages/student/PerformaPage";
 import MentorPage   from "./pages/student/MentorPage";
 import { LoginPage, RegisterPage } from "./pages/student/AuthPages";
-import MentorApplyPage from './pages/mentor/MentorApplyPage'
-import OrangTuaDashboard, { InviteCodeCard } from './pages/ortu/OrangTuaDashboard'
+import MentorApplyPage from "./pages/mentor/Mentorapplypage";
+import OrangTuaDashboard, { InviteCodeCard } from "./pages/parent/Orangtuadashboard";
 
 const NO_NAVBAR = ['/login', '/register']
 

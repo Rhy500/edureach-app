@@ -1,4 +1,4 @@
-import { supabase } from './supabase'
+/*import { supabase } from './supabase'
 
 // ── MENTOR ────────────────────────────────────────
 
@@ -122,3 +122,4 @@ export async function getChildInviteCode(userId) {
     .single()
   return data?.invite_code
 }
+*/
