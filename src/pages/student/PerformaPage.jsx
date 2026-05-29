@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { supabase } from "../../lib/supabase";
-//import { InviteCodeCard } from '../parent/Orangtuadashboard'
 
 const subjectMeta = {
   matematika: { label:"Matematika",       color:"bg-violet-100 text-violet-800",  bar:"bg-violet-500" },
   ipa:        { label:"IPA",              color:"bg-emerald-100 text-emerald-800", bar:"bg-emerald-500" },
- // coding:     { label:"Coding",           color:"bg-amber-100 text-amber-800",    bar:"bg-amber-500" },
-  digital:    { label:"Literasi Digital", color:"bg-pink-100 text-pink-800",      bar:"bg-pink-500" },
+  coding:     { label:"Coding",           color:"bg-amber-100 text-amber-800",    bar:"bg-amber-500" },
+  literasi_digital:    { label:"Literasi Digital", color:"bg-pink-100 text-pink-800",      bar:"bg-pink-500" },
   bahasa:     { label:"Bahasa Indonesia", color:"bg-sky-100 text-sky-800",        bar:"bg-sky-500" },
   ips:        { label:"IPS",             color:"bg-orange-100 text-orange-800",   bar:"bg-orange-500" },
 };
@@ -43,10 +42,10 @@ export default function PerformaPage({ onNavigate }) {
     setLoading(true); setError(null);
     try {
       const [p, a, q] = await Promise.all([
-        supabase.from("user_progress")
-          .select("progress_pct,episodes_done,updated_at,completed_at,courses(id,title,subject_id,episode_count)")
-          .eq("user_id", user.id)
-          .order("updated_at", { ascending: false }),
+supabase.from("user_progress")
+        .select("progress_pct,episodes_done,updated_at,completed_at,courses(id,title,subject_id,episode_count)")
+        .eq("user_id", user.id)
+        .order("updated_at", { ascending: false }),
 
         supabase.from("episode_completions")
           .select("completed_at,episodes(title,courses(title,subject_id))")
@@ -55,9 +54,9 @@ export default function PerformaPage({ onNavigate }) {
           .limit(10),
 
         supabase.from("quiz_results")
-          .select("score,total_questions,pct,xp_earned,created_at,courses(title)")
-          .eq("user_id", user.id)
-          .order("created_at", { ascending: false }),
+        .select("score,total_questions,pct,xp_earned,created_at,courses(title)")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false }),
       ]);
       if (p.error) throw p.error;
       if (a.error) throw a.error;
@@ -70,7 +69,7 @@ export default function PerformaPage({ onNavigate }) {
       // hitung aktivitas 7 hari
       const now = new Date();
       const days = Array(7).fill(0).map((_, i) => {
-        const d = new Date(now); d.setDate(now.getDate() - (6 - i));
+      const d = new Date(now); d.setDate(now.getDate() - (6 - i));
         const dow = d.getDay();
         return { label: WEEK[dow === 0 ? 6 : dow - 1], date: d.toDateString(), count: 0 };
       });
@@ -95,7 +94,7 @@ export default function PerformaPage({ onNavigate }) {
   const doneCourses = progress.filter(p => p.progress_pct === 100).length;
   const inProgress  = progress.filter(p => p.progress_pct > 0 && p.progress_pct < 100).length;
   const avgQuiz     = quizzes.length ? Math.round(quizzes.reduce((s,q) => s+q.pct,0)/quizzes.length) : 0;
-  const bestQuiz    = quizzes.length ? Math.max(...quizzes.map(q=>q.pct)) : 0;
+      const bestQuiz    = quizzes.length ? Math.max(...quizzes.map(q=>q.pct)) : 0;
 
   const subjMastery = Object.entries(subjectMeta).map(([id, meta]) => {
     const rows = progress.filter(p => p.courses?.subject_id === id);
@@ -121,15 +120,15 @@ export default function PerformaPage({ onNavigate }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6 py-8">
+<div className="max-w-6xl mx-auto px-6 py-8">
 
-        {/* error */}
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 text-sm font-semibold px-5 py-4 rounded-2xl mb-5 flex items-center gap-3">
+      {/* error */}
+{error && (
+      <div className="bg-red-50 border border-red-200 text-red-700 text-sm font-semibold px-5 py-4 rounded-2xl mb-5 flex items-center gap-3">
             <span>Gagal memuat data: {error}</span>
-            <button onClick={fetchAll} className="text-xs underline ml-auto">Coba lagi</button>
-          </div>
-        )}
+          <button onClick={fetchAll} className="text-xs underline ml-auto">Coba lagi</button>
+      </div>
+)}
 
         {/* ── profile ── */}
         <div className="bg-white rounded-3xl border border-gray-100 p-6 mb-6 flex items-center gap-5 flex-wrap">
@@ -156,18 +155,16 @@ export default function PerformaPage({ onNavigate }) {
                   <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                     <div className="h-full bg-amber-400 rounded-full" style={{ width:`${Math.min(xp%100,100)}%` }}/>
                   </div>
-                  <p className="text-[10px] text-gray-400 mt-1">{xpToNext} XP lagi untuk Level {levelNum+1}</p>
+<p className="text-[10px] text-gray-400 mt-1">{xpToNext} XP lagi untuk Level {levelNum+1}</p>
                 </div>
-              </div>
-              <button onClick={() => onNavigate("/kursus")}
+                            </div>
+<button onClick={() => onNavigate("/kursus")}
                 className="text-sm font-bold bg-violet-600 text-white px-5 py-2.5 rounded-2xl hover:bg-violet-700 active:scale-95 transition-all flex-shrink-0">
                 Lanjut belajar →
               </button>
             </>
           )}
         </div>
-        {/* Invite Code */}
-        <InviteCodeCard userId={user.id} />
 
         {/* ── stat cards ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
@@ -188,13 +185,13 @@ export default function PerformaPage({ onNavigate }) {
               }
             </div>
           ))}
-        </div>
+            </div>
 
-        {/* ── streak + bars ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            {/* ── streak + bars ── */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
           <div className="bg-white rounded-2xl border border-gray-100 p-5">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-black text-gray-800">Streak minggu ini</h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-black text-gray-800">Streak minggu ini</h3>
               <span className="text-2xl font-black text-violet-600">{streak} 🔥</span>
             </div>
             {loading
@@ -207,15 +204,15 @@ export default function PerformaPage({ onNavigate }) {
                         {d.count>0?(i===6?"◎":"✓"):"–"}
                       </div>
                       <span className={`text-[10px] font-semibold ${i===6?"text-violet-600":"text-gray-400"}`}>{d.label}</span>
-                    </div>
-                  ))}
+                  </div>
+))}
                 </div>
-            }
+}
           </div>
 
           <div className="bg-white rounded-2xl border border-gray-100 p-5">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-black text-gray-800">Aktivitas minggu ini</h3>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-black text-gray-800">Aktivitas minggu ini</h3>
               <span className="text-xs text-gray-400">episode per hari</span>
             </div>
             {loading ? <Skel className="h-20"/>
@@ -227,15 +224,15 @@ export default function PerformaPage({ onNavigate }) {
                       <span className={`text-[9px] font-semibold ${i===6?"text-violet-600":"text-gray-400"}`}>{d.label}</span>
                     </div>
                   ))}
-                </div>
+                  </div>
             }
-          </div>
-        </div>
+                </div>
+              </div>
 
-        {/* ── penguasaan + kursus aktif ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-          <div className="bg-white rounded-2xl border border-gray-100 p-5">
-            <h3 className="text-sm font-black text-gray-800 mb-4">Penguasaan per mata pelajaran</h3>
+              {/* ── penguasaan + kursus aktif ── */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                <div className="bg-white rounded-2xl border border-gray-100 p-5">
+                  <h3 className="text-sm font-black text-gray-800 mb-4">Penguasaan per mata pelajaran</h3>
             {loading ? <div className="space-y-3">{Array(3).fill(0).map((_,i)=><Skel key={i} className="h-6"/>)}</div>
               : subjMastery.length===0
                 ? <p className="text-xs text-gray-400 text-center py-6">Mulai belajar untuk lihat statistik!</p>
@@ -305,8 +302,8 @@ export default function PerformaPage({ onNavigate }) {
                 </div>
               );
             })}
-          </div>
-        )}
+            </div>
+)}
 
         {/* ── badges ── */}
         <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-5">
@@ -314,27 +311,27 @@ export default function PerformaPage({ onNavigate }) {
             <h3 className="text-sm font-black text-gray-800">Pencapaian</h3>
             <span className="text-xs text-gray-400">{badges.filter(b=>b.earned).length}/{badges.length} badge</span>
           </div>
-          {loading
+{loading
             ? <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">{Array(8).fill(0).map((_,i)=><Skel key={i} className="h-20"/>)}</div>
             : <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
                 {badges.map(b=>(
                   <div key={b.key} className={`flex flex-col items-center gap-2 p-3 rounded-2xl border
                     ${b.earned?"bg-amber-50 border-amber-200":"bg-gray-50 border-gray-100 opacity-40"}`}>
                     <span style={{fontSize:24}}>{b.icon}</span>
-                    <div className="text-center">
-                      <p className="text-[10px] font-black text-gray-700 leading-tight">{b.name}</p>
-                      <p className="text-[9px] text-gray-400 mt-0.5">{b.earned?"Didapat ✓":"Terkunci"}</p>
-                    </div>
-                  </div>
+              <div className="text-center">
+                <p className="text-[10px] font-black text-gray-700 leading-tight">{b.name}</p>
+                <p className="text-[9px] text-gray-400 mt-0.5">{b.earned?"Didapat ✓":"Terkunci"}</p>
+              </div>
+              </div>
                 ))}
               </div>
-          }
-        </div>
+              }
+            </div>
 
-        {/* ── aktivitas terbaru ── */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-5">
-          <h3 className="text-sm font-black text-gray-800 mb-4">Aktivitas terbaru</h3>
-          {loading
+            {/* ── aktivitas terbaru ── */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-5">
+              <h3 className="text-sm font-black text-gray-800 mb-4">Aktivitas terbaru</h3>
+{loading
             ? <div className="space-y-2">{Array(5).fill(0).map((_,i)=><Skel key={i} className="h-10"/>)}</div>
             : activity.length===0
               ? <p className="text-xs text-gray-400 text-center py-6">Belum ada aktivitas. Yuk mulai belajar! 🚀</p>
@@ -349,15 +346,14 @@ export default function PerformaPage({ onNavigate }) {
                       </div>
                       <span className="text-[10px] text-gray-400 flex-shrink-0">
                         {new Date(a.completed_at).toLocaleDateString("id-ID",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
-                      </span>
-                    </div>
-                  );
+              </span>
+            </div>
+          );
                 })
           }
         </div>
 
       </div>
     </div>
-    
   );
 }

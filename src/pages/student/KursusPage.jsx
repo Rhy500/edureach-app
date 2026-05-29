@@ -5,18 +5,18 @@ const SUBJECTS = [
   { id: 'semua', label: 'Semua' },
   { id: 'matematika', label: 'Matematika' },
   { id: 'ipa', label: 'IPA' },
- // { id: 'coding', label: 'Coding' },
-  { id: 'digital', label: 'Literasi Digital' },
+  { id: 'coding', label: 'Coding' },
+  { id: 'literasi_digital', label: 'Literasi Digital' },
   { id: 'bahasa', label: 'Bahasa Indonesia' },
   { id: 'ips', label: 'IPS' },
 ]
-const LEVELS = ['Semua', 'SD', 'SMP', 'SMA']
+const LEVELS = ['Semua', 'Entry-Level', 'Mid-Level', 'Expert']
 
 const subjectMeta = {
   matematika: { light: 'bg-violet-50', hex: '#7F77DD', bar: 'bg-violet-500', color: 'bg-violet-100 text-violet-800' },
   ipa:        { light: 'bg-emerald-50', hex: '#1D9E75', bar: 'bg-emerald-500', color: 'bg-emerald-100 text-emerald-800' },
-  //coding:     { light: 'bg-amber-50',  hex: '#BA7517', bar: 'bg-amber-500', color: 'bg-amber-100 text-amber-800' },
-  digital:    { light: 'bg-pink-50',   hex: '#D4537E', bar: 'bg-pink-500', color: 'bg-pink-100 text-pink-800' },
+  coding:     { light: 'bg-amber-50',  hex: '#BA7517', bar: 'bg-amber-500', color: 'bg-amber-100 text-amber-800' },
+  literasi_digital:    { light: 'bg-pink-50',   hex: '#D4537E', bar: 'bg-pink-500', color: 'bg-pink-100 text-pink-800' },
   bahasa:     { light: 'bg-sky-50',    hex: '#378ADD', bar: 'bg-sky-500', color: 'bg-sky-100 text-sky-800' },
   ips:        { light: 'bg-orange-50', hex: '#D85A30', bar: 'bg-orange-500', color: 'bg-orange-100 text-orange-800' },
 }

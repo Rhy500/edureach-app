@@ -15,9 +15,9 @@ const SUBJECTS = [
 const steps = ['Bidang keahlian', 'Pengalaman', 'Motivasi', 'Konfirmasi']
 
 function StatusCard({ status, appliedAt }) {
-  const cfg = {
-    pending:  { bg: 'bg-amber-50 border-amber-200', icon: '⏳', title: 'Sedang diproses', color: 'text-amber-800', sub: 'Tim EduReach sedang mereview permohonanmu. Biasanya 1–3 hari kerja.' },
-    approved: { bg: 'bg-emerald-50 border-emerald-200', icon: '🎉', title: 'Permohonan disetujui!', color: 'text-emerald-800', sub: 'Selamat! Kamu sudah resmi menjadi mentor EduReach.' },
+const cfg = {
+    pending:  { bg: 'bg-amber-50 border-amber-200', icon: '⏳', title: 'Sedang diproses', color: 'text-amber-800', sub: 'Tim AkademikBelajar sedang mereview permohonanmu. Biasanya 1–3 hari kerja.' },
+    approved: { bg: 'bg-emerald-50 border-emerald-200', icon: '🎉', title: 'Permohonan disetujui!', color: 'text-emerald-800', sub: 'Selamat! Kamu sudah resmi menjadi mentor AkademikBelajar.' },
     rejected: { bg: 'bg-red-50 border-red-200', icon: '❌', title: 'Permohonan ditolak', color: 'text-red-800', sub: 'Permohonanmu belum bisa diterima saat ini. Kamu bisa coba lagi 30 hari kemudian.' },
   }
   const c = cfg[status]
@@ -130,7 +130,7 @@ export default function MentorApplyPage({ onNavigate }) {
           <div className="text-6xl mb-4">🎓</div>
           <h1 className="text-2xl font-black text-gray-900 mb-2">Permohonan terkirim!</h1>
           <p className="text-gray-500 text-sm mb-6 leading-relaxed">
-            Tim EduReach akan menghubungi kamu via WhatsApp <strong>{form.whatsapp}</strong> dalam 1–3 hari kerja.
+            Tim AkademikBelajar akan menghubungi kamu via WhatsApp <strong>{form.whatsapp}</strong> dalam 1–3 hari kerja.
           </p>
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6 text-left">
             <p className="text-xs font-black text-amber-800 mb-1">Yang perlu disiapkan</p>
@@ -235,7 +235,7 @@ export default function MentorApplyPage({ onNavigate }) {
                 <div>
                   <label className="text-xs font-bold text-gray-600 block mb-1.5">Mengapa ingin jadi mentor? (min. 50 karakter)</label>
                   <textarea value={form.motivation} onChange={e => setForm({ ...form, motivation: e.target.value })}
-                    rows={4} placeholder="Ceritakan kenapa kamu ingin berkontribusi di EduReach dan apa yang ingin kamu berikan untuk siswa di daerah..."
+Ceritakan kenapa kamu ingin berkontribusi di AkademikBelajar dan apa yang ingin kamu berikan untuk siswa di daerah...
                     className="w-full px-4 py-3 text-sm border border-gray-200 rounded-2xl focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all bg-gray-50 resize-none" />
                   <p className={`text-xs mt-1 text-right ${form.motivation.length >= 50 ? 'text-emerald-500' : 'text-gray-400'}`}>
                     {form.motivation.length}/50 min
@@ -275,7 +275,7 @@ export default function MentorApplyPage({ onNavigate }) {
               </div>
               <div className="bg-violet-50 border border-violet-200 rounded-2xl p-4 mb-2">
                 <p className="text-xs text-violet-700 leading-relaxed">
-                  Dengan mengirim permohonan ini, kamu setuju untuk menjaga kualitas konten dan mematuhi panduan mentor EduReach. Admin akan menghubungi dalam <strong>1–3 hari kerja</strong> via WhatsApp.
+Dengan mengirim permohonan ini, kamu setuju untuk menjaga kualitas konten dan mematuhi panduan mentor AkademikBelajar.
                 </p>
               </div>
             </>

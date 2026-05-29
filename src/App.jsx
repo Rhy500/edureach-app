@@ -8,8 +8,8 @@ import QuizPage     from "./pages/student/QuizPage";
 import PerformaPage from "./pages/student/PerformaPage";
 import MentorPage   from "./pages/student/MentorPage";
 import { LoginPage, RegisterPage } from "./pages/student/AuthPages";
-import MentorApplyPage from "./pages/mentor/Mentorapplypage";
-import OrangTuaDashboard, { InviteCodeCard } from "./pages/parent/Orangtuadashboard";
+//import MentorApplyPage from "./pages/mentor/Mentorapplypage";
+//import OrangTuaDashboard, { InviteCodeCard } from "./pages/parent/Orangtuadashboard";
 
 const NO_NAVBAR = ['/login', '/register']
 
@@ -22,7 +22,7 @@ function ProtectedRoute({ children }) {
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <div className="text-3xl font-black mb-2">
-          <span className="text-violet-600">Edu</span><span className="text-emerald-500">Reach</span>
+          <span className="text-violet-600">Akademik</span><span className="text-emerald-500">Belajar</span>
         </div>
         <div className="text-sm text-gray-400 animate-pulse">Memuat...</div>
       </div>
@@ -47,7 +47,7 @@ function AppContent() {
   const showNavbar = !NO_NAVBAR.includes(location.pathname)
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       {showNavbar && (
         <Navbar
           activePage={location.pathname.replace('/', '') || 'landing'}
@@ -61,8 +61,8 @@ function AppContent() {
         <Route path="/mentor"   element={<MentorPage   onNavigate={go} />} />
         <Route path="/login"    element={<LoginPage    onNavigate={go} />} />
         <Route path="/register" element={<RegisterPage onNavigate={go} />} />
-        <Route path="/mentor/daftar" element={<ProtectedRoute><MentorApplyPage onNavigate={navigate} /></ProtectedRoute>} />
-        <Route path="/ortu/dashboard" element={<ProtectedRoute><OrangTuaDashboard onNavigate={navigate} /></ProtectedRoute>} />
+        {/*<Route path="/mentor/daftar" element={<ProtectedRoute><MentorApplyPage onNavigate={navigate} /></ProtectedRoute>} />
+        <Route path="/ortu/dashboard" element={<ProtectedRoute><OrangTuaDashboard onNavigate={navigate} /></ProtectedRoute>} /> */}
 
         {/* Protected routes */}
         <Route path="/video" element={

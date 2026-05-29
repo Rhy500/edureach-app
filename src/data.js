@@ -4,7 +4,7 @@
 // ─────────────────────────────────────────────────
 
 export const SUBJECTS = [
-  { id: "semua",      label: "Semua",            icon: "◈",   color: "bg-gray-100 text-gray-700",         bar: "bg-gray-400",    light: "bg-gray-50",    hex: "#888" },
+ // { id: "semua",      label: "Semua",            icon: "◈",   color: "bg-gray-100 text-gray-700",         bar: "bg-gray-400",    light: "bg-gray-50",    hex: "#888" },
   { id: "matematika", label: "Matematika",        icon: "∑",   color: "bg-violet-100 text-violet-800",     bar: "bg-violet-500",  light: "bg-violet-50",  hex: "#7F77DD" },
   { id: "ipa",        label: "IPA",               icon: "⚛",   color: "bg-emerald-100 text-emerald-800",   bar: "bg-emerald-500", light: "bg-emerald-50", hex: "#1D9E75" },
   { id: "coding",     label: "Coding",            icon: "</>", color: "bg-amber-100 text-amber-800",       bar: "bg-amber-500",   light: "bg-amber-50",   hex: "#BA7517" },
@@ -15,7 +15,7 @@ export const SUBJECTS = [
 
 export const COURSES = [
   { id: 1,  title: "Aljabar dasar untuk pemula",        subject: "matematika", level: "SMP", episodes: 5, duration: "38 mnt", progress: 0,   isNew: false },
-  { id: 2,  title: "Sistem tata surya & planet",        subject: "ipa",        level: "SMP", episodes: 4, duration: "29 mnt", progress: 0,   isNew: false },
+  /*{ id: 2,  title: "Sistem tata surya & planet",        subject: "ipa",        level: "SMP", episodes: 4, duration: "29 mnt", progress: 0,   isNew: false },
   { id: 3,  title: "Pengenalan Python untuk pemula",    subject: "coding",     level: "SMA", episodes: 6, duration: "51 mnt", progress: 0,   isNew: true  },
   { id: 4,  title: "Internet sehat & keamanan digital", subject: "digital",    level: "SMP", episodes: 4, duration: "22 mnt", progress: 0,   isNew: false },
   { id: 5,  title: "Pecahan & desimal kelas 5",         subject: "matematika", level: "SD",  episodes: 5, duration: "33 mnt", progress: 0,   isNew: false },
@@ -26,6 +26,7 @@ export const COURSES = [
   { id: 10, title: "Kerajaan-kerajaan Nusantara",       subject: "ips",        level: "SMP", episodes: 6, duration: "44 mnt", progress: 0,   isNew: false },
   { id: 11, title: "Persamaan kuadrat & grafik",        subject: "matematika", level: "SMA", episodes: 6, duration: "49 mnt", progress: 0,   isNew: false },
   { id: 12, title: "Penjumlahan & pengurangan dasar",   subject: "matematika", level: "SD",  episodes: 3, duration: "18 mnt", progress: 100, isNew: false },
+*/
 ];
 
 export const EPISODES = [
@@ -82,16 +83,17 @@ export const QUIZ_QUESTIONS = [
 export const MENTORS = [
   {
     id: 1,
-    name: "Pak Dimas Pratama",
-    role: "Mentor Matematika",
-    subject: "matematika",
-    location: "Yogyakarta",
-    students: 142,
+    name: "Febriyanti Rahayu",
+    role: "Mentor Literasi",
+    subject: "Penggetahuan Umum",
+    location: "Timika",
+    students: 50,
     rating: 4.9,
-    courses: 8,
-    bio: "Guru SMA dengan 10 tahun pengalaman. Spesialis aljabar dan kalkulus dasar.",
+    courses: 1,
+    bio: "Berbagi ilmu lewat penggetahuan dasar.",
     badges: ["Top Mentor", "5★ Rating"],
   },
+  
   {
     id: 2,
     name: "Bu Sari Dewi",
@@ -128,4 +130,5 @@ export const MENTORS = [
     bio: "Konsultan keamanan digital dan edukator teknologi.",
     badges: ["Baru", "Aktif"],
   },
+  
 ];

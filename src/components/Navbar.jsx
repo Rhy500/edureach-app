@@ -24,7 +24,7 @@ export default function Navbar({ activePage, onNavigate }) {
       <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between">
 
         <button onClick={() => onNavigate('/')} className="text-xl font-black tracking-tight">
-          <span className="text-violet-600">Edu</span><span className="text-emerald-500">Reach</span>
+          <span className="text-violet-600">Akademik</span><span className="text-emerald-500">Belajar</span>
         </button>
 
         <div className="hidden md:flex items-center gap-1">

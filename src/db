@@ -1,0 +1,189 @@
+-- ================================================
+-- EDUREACH — Supabase SQL Schema
+-- Jalankan seluruh file ini di:
+-- Supabase Dashboard → SQL Editor → New Query → Run
+-- ================================================
+
+-- 1. PROFILES (data user)
+create table public.profiles (
+  id uuid references auth.users(id) on delete cascade primary key,
+  name text not null,
+  email text,
+  role text default 'siswa' check (role in ('siswa', 'mentor', 'ortu')),
+  level_name text default 'Pemula',
+  level_num integer default 1,
+  xp integer default 0,
+  streak integer default 0,
+  school text,
+  grade text,
+  avatar_url text,
+  created_at timestamp with time zone default now()
+);
+
+-- 2. SUBJECTS (mata pelajaran)
+create table public.subjects (
+  id text primary key,
+  label text not null,
+  icon text,
+  color text,
+  order_num integer default 0
+);
+
+insert into public.subjects (id, label, icon, color, order_num) values
+  ('matematika', 'Matematika', '∑', 'bg-violet-100 text-violet-800', 1),
+  ('ipa',        'IPA',        '⚛', 'bg-emerald-100 text-emerald-800', 2),
+  ('coding',     'Coding',     '</>', 'bg-amber-100 text-amber-800', 3),
+  ('digital',    'Literasi Digital', 'AI', 'bg-pink-100 text-pink-800', 4),
+  ('bahasa',     'Bahasa Indonesia', 'Aa', 'bg-sky-100 text-sky-800', 5),
+  ('ips',        'IPS',        '◉', 'bg-orange-100 text-orange-800', 6);
+
+-- 3. COURSES (kursus)
+create table public.courses (
+  id uuid default gen_random_uuid() primary key,
+  title text not null,
+  description text,
+  subject_id text references public.subjects(id),
+  level text check (level in ('Entry-Level', 'Mid-level', 'Expert')),
+  episode_count integer default 0,
+  duration_text text,
+  thumbnail_icon text,
+  is_new boolean default false,
+  is_published boolean default true,
+  created_at timestamp with time zone default now()
+);
+
+-- 4. EPISODES (episode dalam kursus)
+create table public.episodes (
+  id uuid default gen_random_uuid() primary key,
+  course_id uuid references public.courses(id) on delete cascade,
+  episode_num integer not null,
+  title text not null,
+  youtube_url text,
+  youtube_id text,
+  duration_text text,
+  description text,
+  xp_reward integer default 20,
+  order_num integer default 0,
+  created_at timestamp with time zone default now()
+);
+
+-- 5. USER PROGRESS (progress belajar per user per kursus)
+create table public.user_progress (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.profiles(id) on delete cascade,
+  course_id uuid references public.courses(id) on delete cascade,
+  progress_pct integer default 0 check (progress_pct between 0 and 100),
+  episodes_done integer default 0,
+  last_episode_id uuid references public.episodes(id),
+  completed_at timestamp with time zone,
+  updated_at timestamp with time zone default now(),
+  unique(user_id, course_id)
+);
+
+-- 6. EPISODE COMPLETIONS (episode mana yang sudah ditonton)
+create table public.episode_completions (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.profiles(id) on delete cascade,
+  episode_id uuid references public.episodes(id) on delete cascade,
+  completed_at timestamp with time zone default now(),
+  unique(user_id, episode_id)
+);
+
+-- 7. QUIZ RESULTS (hasil kuis)
+create table public.quiz_results (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.profiles(id) on delete cascade,
+  course_id uuid references public.courses(id) on delete cascade,
+  score integer not null,
+  total_questions integer not null,
+  pct integer not null,
+  xp_earned integer default 0,
+  created_at timestamp with time zone default now()
+);
+
+-- *. QUIZ QUESTIONS (soal kuis per kursus)
+create table public.quiz_questions (
+  id uuid default gen_random_uuid() primary key,
+  course_id uuid references public.courses(id) on delete cascade,
+  question text not null,
+  option json not null,
+  correct_index integer not null check (correct_index between 0 and 3),
+  explanation text,
+  order_num integer default 0,
+  created_at timestamp with time zone default now()
+);
+
+-- ================================================
+-- ROW LEVEL SECURITY (RLS)
+-- ================================================
+
+alter table public.profiles enable row level security;
+alter table public.courses enable row level security;
+alter table public.episodes enable row level security;
+alter table public.user_progress enable row level security;
+alter table public.episode_completions enable row level security;
+alter table public.quiz_results enable row level security;
+alter table public.subjects enable row level security;
+alter table public.quiz_questions enable row level security;
+
+-- Profiles: user hanya bisa lihat & edit data sendiri
+create policy "Users can view own profile"
+  on public.profiles for select using (auth.uid() = id);
+
+create policy "Users can update own profile"
+  on public.profiles for update using (auth.uid() = id);
+
+-- Courses: semua bisa lihat (publik)
+create policy "Anyone can view published courses"
+  on public.courses for select using (is_published = true);
+
+-- Episodes: semua bisa lihat
+create policy "Anyone can view episodes"
+  on public.episodes for select using (true);
+
+-- Subjects: semua bisa lihat
+create policy "Anyone can view subjects"
+  on public.subjects for select using (true);
+
+-- Progress: hanya milik sendiri
+create policy "Users can manage own progress"
+  on public.user_progress for all using (auth.uid() = user_id);
+
+-- Episode completions: hanya milik sendiri
+create policy "Users can manage own completions"
+  on public.episode_completions for all using (auth.uid() = user_id);
+
+-- Quiz results: hanya milik sendiri
+create policy "Users can manage own quiz results"
+  on public.quiz_results for all using (auth.uid() = user_id);
+
+-- Quiz questions: semua bisa lihat
+create policy "Anyone can view quis questions"
+  on public.quiz_questions for select using (true);
+
+-- ================================================
+-- TRIGGER: Auto-buat profile saat user register
+-- ================================================
+
+create or replace function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.profiles (id, name, email)
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)),
+    new.email
+  );
+  return new;
+end;
+$$ language plpgsql security definer;
+
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+
+-- ================================================
+-- DATA  AWAL (Subjects)
+-- ================================================
+
+
